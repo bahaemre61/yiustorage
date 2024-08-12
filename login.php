@@ -92,13 +92,6 @@ else if (isset($_COOKIE["cerez"])) {
                 </tr>
                 <tr>
                 <td class="text-right">
-                <!-- <a href="register.php" class="btn btn-danger">Kayıt Ol</a>
-                    </td>
-                    <script>
-                       function redirectRegister() {window.location.href = "register.php";}
-                    </script>
-                </tr>
-            </table> -->
         </div>
     </div>
 </form>

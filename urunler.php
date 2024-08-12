@@ -111,11 +111,18 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
                     <td><?php echo $sonuc["urunAdi"] ?></td>
                     <td><?php echo $sonuc["urunMiktari"] ?></td>
                     <td><?php echo $sonuc["turAdi"] ?></td>
+                    <td>
+                      <a style="font-size: 22px;" class="edit-link"><ion-icon name="sync-outline"></ion-icon></a>
+                      <a style="font-size: 22px;" class="edit-link"><ion-icon name="close-circle-outline"></ion-icon></a>
+
+                  </td>
                 </tr>
                 <?php
             }
             ?>
         </table>
+        <th><a style="top: 20px; right:40px; position :absolute; font-size:32px;" href="urunEkle.php"><ion-icon name="bag-add-outline"></ion-icon></th>
+
     </div>
 </body>
 </html>

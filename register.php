@@ -138,7 +138,6 @@ if ($_POST) {
                                 $txtParola = md5('56' . $txtParola . '23');
                                 if ($sorgu = $baglanti->query("INSERT INTO kullanici (kullaniciAdi, KullaniciSifre, Yetki) VALUES ('$txtKadi', '$txtParola','0')"))
                                 {
-                                    //header("location:index.php");
                                     echo "Kayıt Oluşturuldu";
                                 }
                                 else

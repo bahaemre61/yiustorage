@@ -28,11 +28,9 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
 
 <?php
 include("vt.php"); 
-
-if ($_POST) {
-    $urunAdi = $_POST["urunAdi"]; 
-    $urunMiktari = $_POST["urunMiktari"]; 
-    //$turID = $row["turID"]; 
+{
+  $sql = "Select * from turler";
+  $sonuc = $baglanti->query($sql);
 }
 ?>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -111,7 +109,7 @@ if ($_POST) {
 </nav>          
 
 
-<form id="form1" method="post">
+<form id="form1" method="post" action="ekle.php">
     <div class="row align-content-center justify-content-center ">
         <div class="col-md-3 kutu">
         <div class ="container">
@@ -129,8 +127,7 @@ if ($_POST) {
                 </tr>
                 <tr>
                     <td>
-                      <select>
-                        <!-- <input type="text" ID="turID" name="turID" class="form-control" placeholder="Tür"/> -->
+                      <select name="turID" ID="turID" class="form-control">
                          <?php
 
                          $sorgu1 = $baglanti->query("Select * from turler");
@@ -143,26 +140,11 @@ if ($_POST) {
                           else
                           {
                             echo "<option value =''>Tür bulunamadı </option>";
-                          }
-                          
-
+                          }                                               
                          ?>
                          </select>
                     </td>
-                </tr>      
-                        <?php
-                        if ($_POST) {                          
-                                if ($sorgu = $baglanti->query("INSERT INTO urunler (urunAdi,urunMiktari,turID) VALUES ('$urunAdi', '$urunMiktari',".$row['turID']."')"))
-                                {
-                                    //header("location:index.php");
-                                    echo "Ürünler Eklendi";
-                                }
-                                else
-                                {
-                                    echo 'Bir hata oldu tekrar deneyin';
-                                }                          
-                        }
-                        ?>                                
+                </tr>                                
                 <tr>
                     <td class="text-center">
                         <input type="submit" class="btn btn-primary btn-block" ID="btnGiris" value="Kaydet"/>
