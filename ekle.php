@@ -16,7 +16,7 @@ if ($_POST) {
           if($baglanti->query($sorgu) === TRUE){
             function_alert("Ürün Başarıyla Eklenmiştir.");
             echo "<script>
-            window.location = 'urunEkle.php';
+            window.location = 'urunler.php';
             </script>";
           }
           else{

@@ -90,7 +90,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
   </ul>
 </nav>                   
     
-
+<span style="bottom:10px; right:30px; position:absolute; color:gray">BAHA EMRE ÇELİK</span>
 
 </body>
 </html>

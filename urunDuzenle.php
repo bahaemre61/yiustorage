@@ -1,13 +1,22 @@
+<?php
 
+use LDAP\Result;
+
+session_start();
+if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
+    $kadi = $_SESSION["kadi"];
+} else {
+    header("location:login.php");
+}
+?>
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
     <link href="styles/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link href="styles/styles.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
-     
-
+    
     <title>Giriş</title>
     <style>
         .kutu {
@@ -16,19 +25,16 @@
     </style>
 </head>
 <body>
+
 <?php
-session_start();
 include("vt.php"); 
+{
+    $id = (int)$_GET["id"];
 
+    $sorgu = $baglanti->query("select * from urunler INNER JOIN turler ON urunler.turID = turler.turID WHERE urunID='$id'");  
+    $sonuc = $sorgu->fetch_assoc();
 
-if (!isset($_SESSION["Oturum"]) || $_SESSION["Oturum"] != "6789") {
-    header("location:login.php");
 }
-
-
-$id = (int)$_GET["id"];
-$sorgu = $baglanti->query("select * from kullanici where kullaniciID=$id");
-$sonuc = $sorgu->fetch_assoc();
 ?>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -67,7 +73,7 @@ $sonuc = $sorgu->fetch_assoc();
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="pie-chart-outline"></ion-icon>
         </div>
-        <span class="link-text">Dashboard</span>
+        <span class="link-text">Urunler</span>
       </a>
     </li>
     <li class="navbar-item flexbox-left">
@@ -104,50 +110,63 @@ $sonuc = $sorgu->fetch_assoc();
     </li>
   </ul>
 </nav>          
-
 <form id="form1" method="post">
     <div class="row align-content-center justify-content-center ">
         <div class="col-md-3 kutu">
         <div class ="container">
-            <h3 class="text-center">Kullanıcı düzenle</h3>
+            <h3 class="text-center">Ürün Düzenle</h3>
             <table class="table">
                 <tr>
                     <td>
-                        <input type="text" ID="txtKadi" name="txtKadi" class="form-control" placeholder="Kullanıcı adı" value='<?php echo $sonuc['kullaniciAdi'] ?>'/>
+                        <input type="text" ID="urunAdi" name="urunAdi" class="form-control" value='<?php echo $sonuc['urunAdi'] ?>'/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="password" ID="txtParola" name="txtParola" class="form-control" placeholder="Parola"/>
+                        <input type="text" ID="urunMiktari" name="urunMiktari" class="form-control" placeholder="Ürün Miktarı"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="password" ID="txtParolaTekrar" name="txtParolaTekrar" class="form-control" placeholder="Parola Tekrar"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <?php                   
-                        if ($_POST) {       
-                            $txtKadi = $_POST["txtKadi"]; 
-                            $txtParola = $_POST["txtParola"]; 
-                            $txtParolaTekrar = $_POST["txtParolaTekrar"]; 
-                            if ($txtParola == $txtParolaTekrar && $txtParola != '' && $txtKadi != '') {
+                      <select name="turID" ID="turID" class="form-control">
+                         <?php
 
-                                $txtParola = md5('56' . $txtParola . '23');
-                                if ($sorgu2 = $baglanti->query("UPDATE kullanici SET kullaniciAdi='$txtKadi', kullaniciSifre='$txtParola' WHERE  kullaniciID=$id")) {
-                                    echo "Kullanıcı bilgileri güncellendi."; 
+                         $sorgu1 = $baglanti->query("Select * from turler");
+
+                         if($sorgu1->num_rows >0 ){
+
+                          while($row=$sorgu1->fetch_assoc()){
+                            echo "<option value='" .$row ['turID'] . "'>" . $row['turAdi'] . "</option>";
+                          }}
+                          else
+                          {
+                            echo "<option value =''>Tür bulunamadı </option>";
+                          }                                               
+                         ?>
+                         </select>
+                    </td>
+                    <td>
+                    <?php                   
+                         if ($_POST) {       
+                             $urunAdi = $_POST["urunAdi"]; 
+                             $urunMiktari = $_POST["urunMiktari"]; 
+                             $turid =  $_POST['turID']; 
+
+
+                                $sorgu2 = "UPDATE  urunler SET urunAdi='$urunAdi',urunMiktari = '$urunMiktari', turID ='$turid' WHERE urunID=$id";
+                                
+                                if($baglanti->query($sorgu2) === TRUE){
+                                    echo "<script> alert('Ürün Güncellendi.')
+                                    location.href='urunler.php'
+                                    </script>"; 
                                 } else {
                                     echo 'Bir hata oldu tekrar deneyin';
                                 }
-                            } else {
-                                echo "Alanları düzgün doldurunuz";
-                            }
-                        }
+                             }
+                        
                         ?>
                     </td>
-                </tr>
+                </tr>                                
                 <tr>
                     <td class="text-center">
                         <input type="submit" class="btn btn-primary btn-block" ID="btnGiris" value="Kaydet"/>
@@ -157,6 +176,6 @@ $sonuc = $sorgu->fetch_assoc();
         </div>
     </div>
 </form>
- </div>
+</div>
 </body>
 </html>
