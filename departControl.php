@@ -1,21 +1,22 @@
 <?php
 include("vt.php");
 session_start();
-if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
-    $kadi = $_SESSION["kadi"];
-} else {
-    header("location:login.php");
-}
+
+ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
+     $kadi = $_SESSION["kadi"];
+ }else{
+     header("location:login.php");
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ürünler</title>
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" type="text/css" href="styles/index.css">
-    
+    <title>Panel</title>
 </head>
 <body>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -35,7 +36,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left" href ="index.php">
+      <a class="navbar-item-inner flexbox-left" href = "index.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="home-outline"></ion-icon>
         </div>
@@ -43,13 +44,14 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left"href = "urunler.php">
+      <a class="navbar-item-inner flexbox-left" href = "urunler.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="folder-open-outline"></ion-icon>
         </div>
         <span class="link-text">Urunler</span>
       </a>
-      <li class="navbar-item flexbox-left">
+    </li>
+    <li class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left" href="departControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="people-outline"></ion-icon>
@@ -90,38 +92,34 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
   </ul>
-</nav>                   
-<div class="container">   
+</nav>         
+    
+<div class="container">
         <table class="table">
             <tr>
                 
-                <th>Ürün Adı</th>
-                <th>Ürün Miktarı</th>
-                <th>Tür Adı</th>
-                <th>İşlemler</th>
-
-                
+                <th>Departman Adi</th>
+                <th>İşlem</th>
+                <th><a style ="size:100px;" href ="departEkle.php"><ion-icon name="add-outline"></ion-icon></a></th>               
             </tr>
-            <?php
-            $sorgu = $baglanti->query("select * from urunler INNER JOIN turler ON urunler.turID = turler.turID ");  
-            while ($sonuc = $sorgu->fetch_assoc()) {             
+            <?php           
+            $sorgu = $baglanti->query("select * from departman");
+   
+            while ($sonuc = $sorgu->fetch_assoc()) {
+               
                 ?>
                 <tr>
-                    <td><?php echo $sonuc["urunAdi"] ?></td>
-                    <td><?php echo $sonuc["urunMiktari"] ?></td>
-                    <td><?php echo $sonuc["turAdi"] ?></td>
+                    <td><?php echo $sonuc["departmanAdi"] ?></td>
                     <td>
-                      <a href="urunDuzenle.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="sync-outline"></ion-icon></a>
-                      <a href="urunSil.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="trash-outline"></ion-icon></a>
-
-                  </td>
+                        <a href=".php?id=<?php echo $sonuc["departmanID"] ?>" class="edit-link">Düzenle</a>
+                        <a href="departDelete.php?id=<?php echo $sonuc["departmanID"] ?>"class="delete-link">Sil</a>
+                    </td>
                 </tr>
                 <?php
             }
             ?>
         </table>
-        <th><a style="top: 20px; right:40px; position :absolute; font-size:32px;" href="urunEkle.php"><ion-icon name="bag-add-outline"></ion-icon></th>
-
     </div>
+    
 </body>
 </html>

@@ -63,17 +63,17 @@ $sonuc = $sorgu->fetch_assoc();
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
+      <a class="navbar-item-inner flexbox-left" href="departControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="pie-chart-outline"></ion-icon>
+          <ion-icon name="people-outline"></ion-icon>
         </div>
-        <span class="link-text">Dashboard</span>
+        <span class="link-text">Birimler</span>
       </a>
     </li>
     <li class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left" href="userControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="people-outline"></ion-icon>
+          <ion-icon name="person-outline"></ion-icon>
         </div>
         <span class="link-text">Kullanıcı</span>
       </a>

@@ -1,5 +1,7 @@
 <?php
-include("vt.php");
+
+use LDAP\Result;
+
 session_start();
 if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
     $kadi = $_SESSION["kadi"];
@@ -7,17 +9,30 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
     header("location:login.php");
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ürünler</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <meta charset="utf-8">
+    <link href="styles/bootstrap.min.css" rel="stylesheet"/>
+    <link href="styles/styles.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
     
+    <title>Giriş</title>
+    <style>
+        .kutu {
+            margin-top: 40px
+        }
+    </style>
 </head>
 <body>
+
+<?php
+include("vt.php"); 
+{
+  $sql = "Select * from turler";
+  $sonuc = $baglanti->query($sql);
+}
+?>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <nav id="navbar">
@@ -35,7 +50,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left" href ="index.php">
+      <a class="navbar-item-inner flexbox-left" href = "index.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="home-outline"></ion-icon>
         </div>
@@ -43,13 +58,14 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left"href = "urunler.php">
+      <a class="navbar-item-inner flexbox-left" href = "urunler.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="folder-open-outline"></ion-icon>
         </div>
         <span class="link-text">Urunler</span>
       </a>
-      <li class="navbar-item flexbox-left">
+    </li>
+    <li class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left" href="departControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="people-outline"></ion-icon>
@@ -90,38 +106,62 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
   </ul>
-</nav>                   
-<div class="container">   
-        <table class="table">
-            <tr>
-                
-                <th>Ürün Adı</th>
-                <th>Ürün Miktarı</th>
-                <th>Tür Adı</th>
-                <th>İşlemler</th>
-
-                
-            </tr>
-            <?php
-            $sorgu = $baglanti->query("select * from urunler INNER JOIN turler ON urunler.turID = turler.turID ");  
-            while ($sonuc = $sorgu->fetch_assoc()) {             
-                ?>
+</nav>          
+<form id="form1" method="post" action="ekle.php">
+    <div class="row align-content-center justify-content-center ">
+        <div class="col-md-3 kutu">
+        <div class ="container">
+             <h3 style="font-size: 30px" class="text-center">Departman Ürün Ekleme</h3>
+            <table class="table">
                 <tr>
-                    <td><?php echo $sonuc["urunAdi"] ?></td>
-                    <td><?php echo $sonuc["urunMiktari"] ?></td>
-                    <td><?php echo $sonuc["turAdi"] ?></td>
-                    <td>
-                      <a href="urunDuzenle.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="sync-outline"></ion-icon></a>
-                      <a href="urunSil.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="trash-outline"></ion-icon></a>
+                <td>
+                      <select name="turID" ID="turID" class="form-control">
+                         <?php
 
-                  </td>
+                         $sorgu1 = $baglanti->query("Select * from departman");
+
+                         if($sorgu1->num_rows >0 ){
+
+                          while($row=$sorgu1->fetch_assoc()){
+                            echo "<option value='" .$row ['departmanID'] . "'>" . $row['departmanAdi'] . "</option>";
+                          }}
+                          else
+                          {
+                            echo "<option value =''>Tür bulunamadı </option>";
+                          }                                               
+                         ?>
+                         </select>
+                    </td>
                 </tr>
-                <?php
-            }
-            ?>
-        </table>
-        <th><a style="top: 20px; right:40px; position :absolute; font-size:32px;" href="urunEkle.php"><ion-icon name="bag-add-outline"></ion-icon></th>
+                <tr>
+                    <td>
+                      <select name="turID" ID="turID" class="form-control">
+                         <?php
 
+                         $sorgu1 = $baglanti->query("Select * from urunler");
+
+                         if($sorgu1->num_rows >0 ){
+
+                          while($row=$sorgu1->fetch_assoc()){
+                            echo "<option value='" .$row ['urunID'] . "'>" . $row['urunAdi'] . "</option>";
+                          }}
+                          else
+                          {
+                            echo "<option value =''>Tür bulunamadı </option>";
+                          }                                               
+                         ?>
+                         </select>
+                    </td>
+                </tr>                                
+                <tr>
+                    <td class="text-center">
+                        <input type="submit" class="btn btn-primary btn-block" ID="btnGiris" value="Kaydet"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
+</form>
+</div>
 </body>
 </html>

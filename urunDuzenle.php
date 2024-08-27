@@ -69,17 +69,17 @@ include("vt.php");
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
+      <a class="navbar-item-inner flexbox-left" href="departControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="pie-chart-outline"></ion-icon>
+          <ion-icon name="people-outline"></ion-icon>
         </div>
-        <span class="link-text">Urunler</span>
+        <span class="link-text">Birimler</span>
       </a>
     </li>
     <li class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left" href="userControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="people-outline"></ion-icon>
+          <ion-icon name="person-outline"></ion-icon>
         </div>
         <span class="link-text">Kullanıcı</span>
       </a>
@@ -123,7 +123,7 @@ include("vt.php");
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" ID="urunMiktari" name="urunMiktari" class="form-control" placeholder="Ürün Miktarı"/>
+                        <input type="text" ID="urunMiktari" name="urunMiktari" class="form-control" placeholder="Ürün Miktarı" value='<?php echo $sonuc['urunMiktari']?>'>
                     </td>
                 </tr>
                 <tr>
