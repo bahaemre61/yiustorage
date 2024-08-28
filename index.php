@@ -24,15 +24,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
-        <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="search-outline"></ion-icon>
-        </div>
-        <span class="link-text">Search</span>
-      </a>
-    </li>
-    <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left" href ="index.php">
+      <a class="navbar-item-inner flexbox-left" href = "index.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="home-outline"></ion-icon>
         </div>
@@ -40,7 +32,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left"href = "urunler.php">
+      <a class="navbar-item-inner flexbox-left" href = "urunler.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="folder-open-outline"></ion-icon>
         </div>
@@ -48,19 +40,11 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left" href="departControl.php">
+      <a class="navbar-item-inner flexbox-left" href="userControl.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="people-outline"></ion-icon>
         </div>
-        <span class="link-text">Birimler</span>
-      </a>
-    </li>
-    <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left" href="userControl.php">
-        <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="person-outline"></ion-icon>
-        </div>
-        <span class="link-text">Kullanıcı</span>
+        <span class="link-text">Kullanıcılar</span>
       </a>
     </li>
     <li class="navbar-item flexbox-left">
@@ -68,23 +52,15 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
         <div class="navbar-item-inner-icon-wrapper flexbox">
           <ion-icon name="chatbubbles-outline"></ion-icon>
         </div>
-        <span class="link-text">Support</span>
+        <span class="link-text">Destek</span>
       </a>
     </li>
-    <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
-        <div class="navbar-item-inner-icon-wrapper flexbox">
-          <ion-icon name="settings-outline"></ion-icon>
-        </div>
-        <span class="link-text">Settings</span>
-      </a>
-    </li>
-    <li class="navbar-item flexbox-left">
+    <li style="padding-top: 50px;" class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left" href="logout.php">
         <div class="navbar-item-inner-icon-wrapper flexbox">
         <ion-icon name="exit-outline"></ion-icon>
         </div>
-        <span class="link-text">Logout</span>
+        <span class="link-text">Çıkış</span>
       </a>
     </li>
   </ul>
