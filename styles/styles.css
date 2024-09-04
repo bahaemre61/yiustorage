@@ -104,7 +104,9 @@ button:hover {
 
 }
 .table{
-    width: 500px;
+    width: 100%;
+    border: 15px solid white;
+    border-collapse: collapse;
 }
 td{
     align-items: center;
@@ -113,4 +115,15 @@ td{
 }
 th{
     position: relative;
+}
+.custom-select select {
+    appearance: none;
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
 }

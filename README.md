@@ -1,3 +1,3 @@
 # YIUStorage
  
-Üniversiteye giren ürünlerin stoğunu tutan program.
+Üniversitede çalışan personellerin ve akademisyenlerin odadaki teknolojik eşyaların stoğunu ve depolamasını sağlayan panel.
