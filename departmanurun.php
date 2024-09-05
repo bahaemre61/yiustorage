@@ -73,22 +73,25 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
             <tr>
                 
                 <th>Departman Adı</th>
+                <th>Ürün Adı</th>
+                <th>Bilgi</th>
                 <th>İşlemler</th>
 
                 
             </tr>
             <?php
-            $sorgu = $baglanti->query("select * from departman");  
+            $sorgu = $baglanti->query("select * from departman INNER JOIN urunler ON departman.urunID = urunler.urunID ");  
             while ($sonuc = $sorgu->fetch_assoc()) {             
                 ?>
                 <tr>
                     <td><?php echo $sonuc["departmanAdi"] ?></td>
-
+                    <td><?php echo $sonuc["urunAdi"] ?></td>
+                    <td><?php echo $sonuc["bilgi"] ?></td>
 
                     
                     <td>
                       <a href="urunDuzenle.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="sync-outline"></ion-icon></a>
-                      <a href="departsil.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="trash-outline"></ion-icon></a>
+                      <a href=".php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="trash-outline"></ion-icon></a>
 
                   </td>
                 </tr>

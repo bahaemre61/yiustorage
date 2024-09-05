@@ -1,5 +1,4 @@
 <?php
-include("vt.php");
 session_start();
 if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
     $kadi = $_SESSION["kadi"];
@@ -7,17 +6,30 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
     header("location:login.php");
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ürünler</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <meta charset="utf-8">
+    <link href="styles/bootstrap.min.css" rel="stylesheet"/>
+    <link href="styles/styles.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
     
+    <title>Giriş</title>
+    <style>
+        .kutu {
+            margin-top: 40px
+        }
+    </style>
 </head>
 <body>
+
+<?php
+include("vt.php"); 
+
+if ($_POST) {
+    $departmanAdi = $_POST["departmanAdi"]; 
+}
+?>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <nav id="navbar">
@@ -67,36 +79,46 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
       </a>
     </li>
   </ul>
-</nav>                   
-<div class="container">   
-        <table class="table">
-            <tr>
-                
-                <th>Departman Adı</th>
-                <th>İşlemler</th>
+</nav>          
 
-                
-            </tr>
-            <?php
-            $sorgu = $baglanti->query("select * from departman");  
-            while ($sonuc = $sorgu->fetch_assoc()) {             
-                ?>
+
+<form id="form1" method="post">
+    <div class="row align-content-center justify-content-center ">
+        <div class="col-md-3 kutu">
+        <div class ="container">
+            <h3 class="text-center">Departman Ekle</h3>
+            <table class="table">
                 <tr>
-                    <td><?php echo $sonuc["departmanAdi"] ?></td>
-
-
-                    
                     <td>
-                      <a href="urunDuzenle.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="sync-outline"></ion-icon></a>
-                      <a href="departsil.php?id=<?php echo $sonuc["urunID"] ?>" style="font-size: 22px;" class="edit-link"><ion-icon name="trash-outline"></ion-icon></a>
-
-                  </td>
+                        <input type="text" ID="departmanAdi" name="departmanAdi" class="form-control" placeholder="Departman Adı" value='<?php echo @$departmanAdi ?>'/>
+                    </td>
                 </tr>
-                <?php
-            }
-            ?>
-        </table>
-
+                            
+                <tr>
+                    <td>
+                        <?php
+                        if ($_POST) {             
+                                if ($sorgu = $baglanti->query("INSERT INTO departman (departmanAdi) VALUES ('$departmanAdi')"))
+                                {
+                                    echo "Kayıt Oluşturuldu";
+                                }
+                                else
+                                {
+                                    echo 'bir hata oldu tekrar deneyin';
+                                }
+                            }  
+                        ?>
+                        </td>                   
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <input type="submit" class="btn btn-primary btn-block" ID="btnGiris" value="Kaydet"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
+</form>
+</div>
 </body>
 </html>

@@ -115,6 +115,7 @@ td{
 }
 th{
     position: relative;
+    align-items: center;
 }
 .custom-select select {
     appearance: none;
